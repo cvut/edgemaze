@@ -72,7 +72,7 @@ Test také potřebuje poměrně hodně paměti, velikost testu můžete ovlivnit
 
 == Licence
 
-Zadání této úlohy, testy i referenční případné řešení jsou zveřejněny pod licencí
+Zadání této úlohy, testy i případné referenční řešení jsou zveřejněny pod licencí
 https://creativecommons.org/publicdomain/zero/1.0/deed.cs[CC0].
 
 == Odevzdávání úkolu
