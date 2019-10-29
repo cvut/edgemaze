@@ -1,0 +1,85 @@
+= edgemaze I.
+:toc:
+:note-caption: :information_source:
+:warning-caption: :warning:
+
+Vaším úkolem je pomocí NumPy vytvořit funkci `analyze(array)` v modulu `edgemaze`.
+
+Na vstupu bude dvourozměrné bludiště uložené v matici,
+bludiště obsahuje zdi na rozhraních mezi políčky matice a volitelné množství cílů umístěných v políčkách matice.
+
+Malá celá čísla v matici kódují situaci podobně jako práva souborů v Unixu:
+
+- nejnižší bit kóduje cíl: čísla obsahující 1 označují cíle,
+- druhý bit kóduje stěnu na rozhraní vlevo: čísla obsahující 2 označují zeď na rozhraní vlevo,
+- třetí bit kóduje stěnu na rozhraní nahoře: čísla obsahující 4 označují zeď na rozhraní nahoře.
+
+Příklady:
+
+- 0 znamená: toto není cíl, vlevo ani nad tímto políčkem není zeď,
+- 4 znamená: toto není cíl, vlevo od tohoto políčka není zeď, ale nad ním ano,
+- 7 znamená: toto je cíl, vlevo i nad tímto políčkem je zeď.
+
+Ostatní bity ignorujte, tedy i pokud jsou nastaveny, jedná se o validní vstup.
+
+V bludišti se lze pohybovat pouze horizontálně nebo vertikálně.
+Zdi nelze procházet. Hranice matice jsou neprůchozí.
+
+Funkce `analyze(array)` vrátí objekt, který má:
+
+atribut `distances`::
+  NumPy matice vhodného celočíselného typu, kde pro každé políčko, ze kterého se dá dostat do cíle,
+  bude délka nejkratší cesty k cíli, jinak -1.
+
+atribut `directions`::
+  NumPy matice typu `('a', 1)`, kde je pro každé takové políčko směr, kterým se odtud dá nejrychleji dostat do cíle,
+  jako ASCII byte `^`, `v`, `<` nebo `>`; pro nedostupná políčka mezeru a pro cíle `X`.
+  V případě více rovnocenných (stejně dlouhých) cest do cíle vyberte libovolnou,
+  ale stejnou jako v metodě `path()` (níže).
+
+atribut `is_reachable`::
+  `True` pokud se dá z každého políčka dostat do cíle, jinak `False`.
+
+metodu `path(row, column)`::
+  Vrátí souřadnice nejkratší cesty z políčka `(row, column)` jako seznam dvojic včetně cíle a startu;
+  pro cesty z cíle do cíle obsahuje jen jednu souřadnici (cíl tedy není uveden dvakrát);
+  pro souřadnice nedostupných políček vyhodí výjimku.
+  V případě více rovnocenných (stejně dlouhých) cest do cíle vyberte libovolnou,
+  ale stejnou jako v atributu `directions`.
+
+V případě, že vstup není správného typu, selže funkce s patřičnou výjimkou;
+pro více informací prostudujte přiložené testy.
+
+== Automatické testy
+
+Součástí zadání úkolu je sada automatických testů.
+Jejich splnění je povinnou, nikoli však dostačující podmínkou pro splnění úkolu.
+
+Pro spuštění testů nainstalujte do virtuálního prostředí balík `pytest` a spusťte:
+
+[source,console]
+$ python -m pytest -v tests
+
+Testy nevyžadují žádný speciální setup, funkce `analyze` nemá žádné side-effecty.
+Testy si doporučujeme zkopírovat k sobě do repozitáře.
+
+NOTE: Testy hojně využívají forcykly, aby byly čitelné pro studenty neznalé pytestu.
+V lekci o pytestu se neučíme psát parametrizované testy místo forcyklů a vysvětlíme si, proč je to lepší.
+
+WARNING: Test `test_large_maze_slow` trvá dlouho.
+Pro rychlejší debugging cyklus ho doporučujeme vypnout pomocí `-k "not slow"` a testovat jej „jako poslední“.
+Test také potřebuje poměrně hodně paměti, velikost testu můžete ovlivnit pomocí proměnné prostředí `BIG_ENOUGH_NUMBER`.
+
+== Licence
+
+Zadání této úlohy, testy i referenční případné řešení jsou zveřejněny pod licencí
+https://creativecommons.org/publicdomain/zero/1.0/deed.cs[CC0].
+
+== Odevzdávání úkolu
+
+* vytvořte si nový privátní git repozitář s názvem `edgemaze` (do něj nás pozvěte, případné kolize s existujícími repozitáři řešte e-mailem)
+* na tuto úlohu budou navazovat další, všechny se budou tématicky věnovat bludišti
+* v repozitáři odevzdávejte pomocí tagu `v0.1`
+* všechny závislosti (včetně `numpy`) uveďte v souboru `requirements.txt` (nemusí být s konkrétní verzí)
+* z kořenového adresáře repozitáře musí jít po instalaci závislostí udělat v Pythonu `from edgemaze import analyze` a `analyze(array)` a spustit dodané testy
+
