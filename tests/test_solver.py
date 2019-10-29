@@ -161,7 +161,7 @@ def test_long_column_target():
     assert numpy.array_equal(a.distances, dists)
 
 
-def two_targets():
+def test_two_targets():
     m = empty(1, 4)
     m[0, 0] = 1
     m[0, -1] = 1
