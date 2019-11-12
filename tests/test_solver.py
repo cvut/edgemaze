@@ -1,5 +1,6 @@
 import os
 import pytest
+import random
 import numpy
 
 from edgemaze import analyze
@@ -322,10 +323,24 @@ def test_swirl_shape():
         del path[0]
 
 
-def test_large_maze_slow():
-    # apologies for all the wasted RAM, if you don't have it,
-    # lower the number by setting BIG_ENOUGH_NUMBER environment variable
-    big = int(os.getenv('BIG_ENOUGH_NUMBER', '1025'))
+@pytest.mark.timeout(20)
+def test_large_maze_fast():
+    big = int(os.getenv('BIG_ENOUGH_NUMBER', '2049'))
+    for i in range(20):
+        m = empty(big)
+        m[0, 0] = 1
+        m[-1, -1] = 1
+        a = run(m)
+        assert a.distances[-1, -1] == 0
+        assert a.distances[0, -1] == big - 1
+        assert a.distances[-1, 0] == big - 1
+        assert len(lot(a.path(big - 1, 0))) == big
+        print(i)
+
+
+@pytest.mark.timeout(2)
+def test_large_maze_fast_path():
+    big = int(os.getenv('BIG_ENOUGH_NUMBER', '2049'))
     m = empty(big)
     m[0, 0] = 1
     a = run(m)
@@ -333,3 +348,6 @@ def test_large_maze_slow():
     assert a.distances[0, -1] == big - 1
     assert a.distances[-1, 0] == big - 1
     assert len(lot(a.path(big - 1, big - 1))) == big * 2 - 1
+    for i in range(50):
+        a.path(random.randrange(big), random.randrange(big))
+        print(i)

@@ -3,7 +3,19 @@
 :note-caption: :information_source:
 :warning-caption: :warning:
 
+Vaším úkolem za 5 bodů je zrychlit pomocí Cythonu algoritmus řešení bludiště tak,
+aby zvládal řešit i bludiště o rozměrech v řádech nižší jednotky tisíců × nižší jednotky tisíců
+na moderním počítači (srovnatelném s těmi ve školní učebně) v průměrném čase maximálně 1 sekundu
+(a volání `.path()` by se u takového bludiště mělo stihnout za sekundu aspoň 50).
+Úkol musí splňovat všechny náležitosti z minula + podmínku na čas.
+
+WARNING: Vaším úkolem *není* přepsat celé řešení do Cythonu.
+
+Následuje zadání, které stále platí:
+
 Vaším úkolem je pomocí NumPy vytvořit funkci `analyze(array)` v modulu `edgemaze`.
+
+NOTE: Referenční řešení se zde objeví během dneška.
 
 Na vstupu bude dvourozměrné bludiště uložené v matici,
 bludiště obsahuje zdi na rozhraních mezi políčky matice a volitelné množství cílů umístěných v políčkách matice.
@@ -55,9 +67,10 @@ pro více informací prostudujte přiložené testy.
 Součástí zadání úkolu je sada automatických testů.
 Jejich splnění je povinnou, nikoli však dostačující podmínkou pro splnění úkolu.
 
-Pro spuštění testů nainstalujte do virtuálního prostředí balík `pytest` a spusťte:
+Pro spuštění testů nainstalujte do virtuálního prostředí balík `pytest-timeout` a spusťte:
 
 [source,console]
+$ python setup.py build_ext -i  # sestaví modul napsaný v Cythonu
 $ python -m pytest -v tests
 
 Testy nevyžadují žádný speciální setup, funkce `analyze` nemá žádné side-effecty.
@@ -66,9 +79,8 @@ Testy si doporučujeme zkopírovat k sobě do repozitáře.
 NOTE: Testy hojně využívají forcykly, aby byly čitelné pro studenty neznalé pytestu.
 V lekci o pytestu se neučíme psát parametrizované testy místo forcyklů a vysvětlíme si, proč je to lepší.
 
-WARNING: Test `test_large_maze_slow` trvá dlouho.
-Pro rychlejší debugging cyklus ho doporučujeme vypnout pomocí `-k "not slow"` a testovat jej „jako poslední“.
-Test také potřebuje poměrně hodně paměti, velikost testu můžete ovlivnit pomocí proměnné prostředí `BIG_ENOUGH_NUMBER`.
+WARNING: Test `test_large_maze_fast` je doplněn o kontrolu na čas pomocí pluginu `pytest-timeout`.
+Pokud máte slabší počítač, můžete testovat se sníženou hodnotou `BIG_ENOUGH_NUMBER`.
 
 == Licence
 
@@ -77,9 +89,11 @@ https://creativecommons.org/publicdomain/zero/1.0/deed.cs[CC0].
 
 == Odevzdávání úkolu
 
-* vytvořte si nový privátní git repozitář s názvem `edgemaze` (do něj nás pozvěte, případné kolize s existujícími repozitáři řešte e-mailem)
-* na tuto úlohu budou navazovat další, všechny se budou tématicky věnovat bludišti
-* v repozitáři odevzdávejte pomocí tagu `v0.1`
-* všechny závislosti (včetně `numpy`) uveďte v souboru `requirements.txt` (nemusí být s konkrétní verzí)
-* z kořenového adresáře repozitáře musí jít po instalaci závislostí udělat v Pythonu `from edgemaze import analyze` a `analyze(array)` a spustit dodané testy
+* pokud ještě nemáte, vytvořte si nový privátní git repozitář s názvem `edgemaze` (do něj nás pozvěte, případné kolize s existujícími repozitáři řešte e-mailem)
+* pokud již máte, pokračujte ve stejném repozitáři
+* tato úloha je ze sady úloh, všechny se budou tématicky věnovat bludišti
+* v repozitáři odevzdávejte pomocí tagu `v0.2`
+* všechny závislosti (včetně `numpy` a `cython`) uveďte v souboru `requirements.txt` (nemusí být s konkrétní verzí)
+* z kořenového adresáře repozitáře musí jít po instalaci závislostí udělat `python setup.py build_ext -i` a poté v Pythonu `from edgemaze import analyze` a `analyze(array)` a spustit dodané testy
+* nepoužívejte pyximport.
 
