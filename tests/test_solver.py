@@ -349,5 +349,5 @@ def test_large_maze_fast_path():
     assert a.distances[-1, 0] == big - 1
     assert len(lot(a.path(big - 1, big - 1))) == big * 2 - 1
     for i in range(50):
-        a.path(random.randrange(big), random.randrange(big))
+        lot(a.path(random.randrange(big), random.randrange(big)))
         print(i)
