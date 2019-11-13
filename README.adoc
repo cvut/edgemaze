@@ -1,4 +1,4 @@
-= edgemaze I.
+= edgemaze II.
 :toc:
 :note-caption: :information_source:
 :warning-caption: :warning:
