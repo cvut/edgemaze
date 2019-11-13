@@ -15,7 +15,7 @@ Následuje zadání, které stále platí:
 
 Vaším úkolem je pomocí NumPy vytvořit funkci `analyze(array)` v modulu `edgemaze`.
 
-NOTE: Referenční řešení se zde objeví během dneška.
+NOTE: Referenční řešení minulé úlohy je zde v repozitáři ve složce `edgemaze`.
 
 Na vstupu bude dvourozměrné bludiště uložené v matici,
 bludiště obsahuje zdi na rozhraních mezi políčky matice a volitelné množství cílů umístěných v políčkách matice.
