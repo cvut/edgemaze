@@ -1,1 +1,7 @@
 __*__/
+build/
+dist/
+*.c
+*.so
+*.dll
+*.html
